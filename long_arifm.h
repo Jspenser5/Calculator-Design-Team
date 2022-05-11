@@ -5,8 +5,9 @@
 #include<iostream>
 using namespace std;
 
-class big_integer {
+class long_arithmetic {
 public:
+
 	// хранение числа
 	vector <int> _digits;
 
@@ -20,10 +21,10 @@ public:
 	void _remove_zeros();
 
 	// сложение чисел
-	big_integer operator +(big_integer left, const big_integer& right);
+	long_arithmetic operator +(long_arithmetic left, const long_arithmetic& right);
 
 	// разность чисел 
-	big_integer operator -(big_integer left, const big_integer& right);
+	long_arithmetic operator -(long_arithmetic left, const long_arithmetic& right);
 
 };
 
