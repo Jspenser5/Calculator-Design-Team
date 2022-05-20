@@ -27,7 +27,7 @@ string reverse_polish_notation(string& expression, vector<char>& operators, vect
 			}
 		}
 	}
-	//Находим первую операцию с минимальным приоритетом
+	//Находим последнюю операцию с минимальным приоритетом
 	for (int i = 0; i < expression.size(); i++) {
 		if (expression[i] == '(') {
 			while (expression[i] != ')')
