@@ -4,7 +4,7 @@
 #include <cmath>
 using namespace std;
 
-// ðåêóðñèâíàÿ ïðîöåäóðà, âîçâðàùàþùàÿ greatest common divisor (ÍÎÄ)
+// рекурсивная процедура, возвращающая greatest common divisor (НОД)
 static int gcd(int a, int b) {
     a = abs(a), b = abs(b);
     if (b == 0)
@@ -36,7 +36,7 @@ public:
     Rational operator *(const Rational& obj);
     Rational operator /(const Rational& obj);
 
-    // âûçûâàòü îïåðàöèþ îáÿçàòåëüíî â ñêîáêàõ! Ïðèìåð: (rn1 ^ 3)
+    // вызывать операцию обязательно в скобках! Пример: (rn1 ^ 3)
     Rational operator ^(const int num);
 
     friend ostream& operator <<(ostream&, const Rational&);
