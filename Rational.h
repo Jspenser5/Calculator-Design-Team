@@ -1,8 +1,10 @@
+#ifndef _RATIONAL_
+#define _RATIONAL_
 #include <iostream>
 #include <cmath>
 using namespace std;
 
-// рекурсивная процедура, возвращающая greatest common divisor (НОД)
+// Г°ГҐГЄГіГ°Г±ГЁГўГ­Г Гї ГЇГ°Г®Г¶ГҐГ¤ГіГ°Г , ГўГ®Г§ГўГ°Г Г№Г ГѕГ№Г Гї greatest common divisor (ГЌГЋГ„)
 static int gcd(int a, int b) {
     a = abs(a), b = abs(b);
     if (b == 0)
@@ -15,11 +17,11 @@ class Rational {
 private:
     int _m, _n;
 public:
-    // по умолчанию
+    // ГЇГ® ГіГ¬Г®Г«Г·Г Г­ГЁГѕ
     Rational();
-    // по полям
+    // ГЇГ® ГЇГ®Г«ГїГ¬
     Rational(int n, int m);
-    // копирования
+    // ГЄГ®ГЇГЁГ°Г®ГўГ Г­ГЁГї
     Rational(const Rational& cl_obj);
     ~Rational() {}
 
@@ -34,7 +36,7 @@ public:
     Rational operator *(const Rational& obj);
     Rational operator /(const Rational& obj);
 
-    // вызывать операцию обязательно в скобках! Пример: (rn1 ^ 3)
+    // ГўГ»Г§Г»ГўГ ГІГј Г®ГЇГҐГ°Г Г¶ГЁГѕ Г®ГЎГїГ§Г ГІГҐГ«ГјГ­Г® Гў Г±ГЄГ®ГЎГЄГ Гµ! ГЏГ°ГЁГ¬ГҐГ°: (rn1 ^ 3)
     Rational operator ^(const int num);
 
     friend ostream& operator <<(ostream&, const Rational&);
@@ -50,3 +52,5 @@ inline istream& operator >>(istream& input, Rational& obj) {
     input >> obj._n;
     return input;
 }
+
+#endif //_RATIONAL_
