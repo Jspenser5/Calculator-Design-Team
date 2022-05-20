@@ -1,4 +1,5 @@
 #include "Rational.h"
+
 Rational::Rational() {
     _m = 0;
     _n = 1;
@@ -56,15 +57,43 @@ Rational Rational::operator /(const Rational& obj) {
     n = (_n * obj._m) / gcd(_m * obj._n, _n * obj._m);
     return Rational(m, n);
 }
-// вызывать операцию обязательно в скобках! Пример: (rn1 ^ 3)
-Rational Rational::operator ^(const int num) {
+// функция возведения рационального числа в целочисленную степень
+// вызывать обязательно в скобках! Пример: (rn1 ^ 3)
+Rational Rational::operator ^(const Rational& obj) {
     long long temp_m = 1, temp_n = 1;
     int m, n;
-    for (int i = 0; i < num; i++) {
+    for (int i = 0; i < obj._m; i++) {
         temp_m *= _m;
         temp_n *= _n;
     }
     m = temp_m / gcd(temp_m, temp_n);
     n = temp_n / gcd(temp_m, temp_n);
     return Rational(m, n);
+}
+
+void Rational::extract(string& str) {
+    int rez = 0, idx = 0;
+    if (str[idx] != '0')
+        while (int(str[idx]) <= 57 and int(str[idx]) >= 48 and idx < str.size()) {
+            rez = rez * 10 + int(str[idx]) - 48;
+            idx++;
+        }
+    _m = rez;
+    if (str[idx] == '|') {
+        idx++;
+        rez = 0;
+        if (str[idx] != '0')
+            while (int(str[idx]) <= 57 and int(str[idx]) >= 48 and idx < str.size()) {
+                rez = rez * 10 + int(str[idx]) - 48;
+                idx++;
+            }
+        _n = rez;
+
+    }
+    else if (str[idx] == ' ') {
+        _n = 1;
+    }
+    else
+        throw exception("Некорректный ввод выражения");
+
 }
