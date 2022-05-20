@@ -74,7 +74,7 @@ string reverse_polish_notation(string& expression, vector<char>& operators, vect
 int main() {
 	string expression;
 	cin >> expression;
-	vector<char> priorities{'-','+','/','*','!'};
+	vector<char> operators{'-','+','/','*','!'};
 	vector<int> priorities{ 0,0,1,1,2 };
 	cout << reverse_polish_notation(expression, operators,priorities) << endl;
 	return 0;
