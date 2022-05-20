@@ -1,8 +1,7 @@
-﻿#ifndef _STACK_
+#ifndef _STACK_
 #define _STACK_
-#include<iostream>
-#include<string>
-#include"stack.h"
+#include <iostream>
+#include <string>
 using namespace std;
 
 // шаблонный стек, реализованный на основе списка
@@ -24,8 +23,7 @@ public:
 
     const T& look_top() const {
         if (get_size() == 0) {
-            string str = "Стек пуст!";
-            throw (str);
+            throw exception("Стек пуст!");
         }
         else
             return top->data;
@@ -33,8 +31,7 @@ public:
 
     void pop() {
         if (get_size() == 0) {
-            string str = "Извлечение невозможно, стек пуст!";
-            throw(str);
+            throw exception("Извлечение невозможно, стек пуст!");
         }
         else {
             T data = top->data;
