@@ -95,5 +95,5 @@ void Rational::extract(string& str) {
     }
     else
         throw exception("Некорректный ввод выражения");
-
+    str.erase(str.begin(), str.begin() + idx + 1);
 }
