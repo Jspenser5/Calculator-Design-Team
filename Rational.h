@@ -41,8 +41,7 @@ public:
 
     friend ostream& operator <<(ostream&, const Rational&);
     friend istream& operator >>(istream&, Rational&);
-    
-    // функция извлечения объекта класса из ОПЗ
+
     void extract(string& str);
 };
 
