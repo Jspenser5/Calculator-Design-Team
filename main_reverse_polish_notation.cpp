@@ -78,6 +78,7 @@ int main() {
 	string expression;
 	cin >> expression;
 	vector<char> priorities{'-','+','/','*','!'};
-	cout << reverse_polish_notation(expression, priorities) << endl;
+	vector<int> priorities{ 0,0,1,1,2 };
+	cout << reverse_polish_notation(expression, operators,priorities) << endl;
 	return 0;
 }
