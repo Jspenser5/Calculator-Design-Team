@@ -13,6 +13,18 @@ int in_vector(vector<char> v, char value) {
 	}
 	return f;
 }
+int give_closing_bracket(string& str, int idx) {
+	int count = 1;
+	while (count != 0) {
+		idx++;
+		if (str[idx] == '(')
+			count++;
+		else if (str[idx] == ')')
+			count--;
+	}
+	return idx;
+}
+
 string reverse_polish_notation(string& expression, vector<char>& operators, vector<int> priorities) {
 	string rezult;
 	int gap_index = -1;
@@ -20,22 +32,22 @@ string reverse_polish_notation(string& expression, vector<char>& operators, vect
 	if (expression.size() == 0)
 		return "";
 	//Если выражение заключено в общие скобки то их убираем
-	if (expression[0] == '(') {
-		for (int i = 1; i < expression.size(); i++) {
-			if (expression[i] == ')') {
-				if (i == expression.size() - 1) {
-					expression.erase(0, 1);
-					expression.erase(expression.size() - 1);
-				}
-				else break;
+	while (true) {
+		if (expression[0] == '(') {
+			int i = give_closing_bracket(expression, 0);
+			if (i == expression.size() - 1) {
+				expression.erase(0, 1);
+				expression.erase(expression.size() - 1);
 			}
+			else break;
 		}
+		else break;
 	}
-	//Находим последнюю операцию с минимальным приоритетом
+
+	//Находим последнюю операцию с минимальным приоритетом (gap_index - индекс )
 	for (int i = 0; i < expression.size(); i++) {
 		if (expression[i] == '(') {
-			while (expression[i] != ')')
-				i++;
+			i = give_closing_bracket(expression, i);
 			continue;
 		}
 		int f = in_vector(operators, expression[i]);
@@ -46,6 +58,7 @@ string reverse_polish_notation(string& expression, vector<char>& operators, vect
 			}
 		}
 	}
+
 	//Если не нашли знаков операций , то интерпретируем это как переменную
 	if (gap_index == -1)
 		return expression + " ";
@@ -53,7 +66,8 @@ string reverse_polish_notation(string& expression, vector<char>& operators, vect
 	string expressionR;
 	//Добавляем к результату последнюю неучтённую часть , учитывая при этом , 
 	//что последний знак операции с нужным приоритетом может оказаться на конце выражения.
-	if (gap_index < expression.size() - 1) expressionR.append(expression, gap_index + 1, expression.size() - gap_index);
+	if (gap_index < expression.size() - 1)
+		expressionR.append(expression, gap_index + 1, expression.size() - gap_index);
 	else expressionR = "";
 	return reverse_polish_notation(expressionL, operators, priorities) + reverse_polish_notation(expressionR, operators, priorities) + expression[gap_index];
 }
