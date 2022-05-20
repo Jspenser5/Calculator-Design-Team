@@ -17,11 +17,11 @@ class Rational {
 private:
     int _m, _n;
 public:
-    // ïî óìîë÷àíèþ
+    // по умолчанию
     Rational();
-    // ïî ïîëÿì
+    // по полям
     Rational(int n, int m);
-    // êîïèðîâàíèÿ
+    // копирования
     Rational(const Rational& cl_obj);
     ~Rational() {}
 
@@ -37,10 +37,13 @@ public:
     Rational operator /(const Rational& obj);
 
     // вызывать операцию обязательно в скобках! Пример: (rn1 ^ 3)
-    Rational operator ^(const int num);
+    Rational operator ^(const Rational& obj);
 
     friend ostream& operator <<(ostream&, const Rational&);
     friend istream& operator >>(istream&, Rational&);
+    
+    // функция извлечения объекта класса из ОПЗ
+    void extract(string& str);
 };
 
 inline ostream& operator <<(ostream& output, const Rational& obj) {
