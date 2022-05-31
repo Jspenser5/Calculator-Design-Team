@@ -21,7 +21,31 @@ int give_closing_bracket(string& str, int idx) {
 	return idx;
 }
 
-string reverse_polish_notation(string& expression, vector<char>& operators, vector<int> priorities) {
+void processing_of_string(string& expression) {
+	int balance = 0, idx = 0, count;
+	for (int i = 0; i < expression.size(); i++) {
+		if (expression[i] == '(')
+			balance++;
+		if (expression[i] == ')') {
+			balance--;
+			if (balance < 0)
+				throw exception("Не верно расставлены скобки");
+		}
+	}
+	if (balance > 0) throw exception("Не верно расставлены скобки");
+
+	while (idx < expression.size()) {
+		if (expression[idx] == ' ') {
+			count = 1;
+			while ((idx + count) < expression.size() and expression[idx + count] == ' ')
+				count++;
+			expression.erase(idx, count);
+		}
+		idx++;
+	}
+}
+
+string reverse_polish_notationL(string& expression, vector<char>& operators, vector<int> priorities) {
 	string rezult;
 	int gap_index = -1;
 	int min_priority = operators.size();
@@ -66,4 +90,10 @@ string reverse_polish_notation(string& expression, vector<char>& operators, vect
 		expressionR.append(expression, gap_index + 1, expression.size() - gap_index);
 	else expressionR = "";
 	return reverse_polish_notation(expressionL, operators, priorities) + reverse_polish_notation(expressionR, operators, priorities) + expression[gap_index];
+}
+
+string reverse_polish_notation(string& expression, vector<char>& operators, vector<int> priorities) {
+	processing_of_string(expression);
+	string expressionL = reverse_polish_notationL(expression, operators, priorities);
+	return expressionL ;
 }
