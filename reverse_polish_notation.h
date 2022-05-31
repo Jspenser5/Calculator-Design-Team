@@ -3,8 +3,14 @@
 #include<vector>
 #include<string>
 using namespace std;
-//Функция для проверки наличия Данного элемента в векторе символов
+//Проверяет наличие в векторе данного элемента
 int in_vector(vector<char> v, char value);
-//Функция для приведения выражения по ОПЗ в соотвецтвии с приоритетами операций
+//Обработка строки позволяет определить ,  правильно ли расставлены скобки , а также удалить все пробелы
+void processing_of_string(string& expression);
+//Возвращает индекс закрывающей скобки к данной
+int give_closing_bracket(string& str, int idx);
+//Функция для конвертации по обратной польской нотации
+string reverse_polish_notationL(string& expression, vector<char>& operators, vector<int> priorities);
+//Обёртка в которой также происходит предварительная обработка
 string reverse_polish_notation(string& expression, vector<char>& operators, vector<int> priorities);
 #endif
