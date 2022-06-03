@@ -71,14 +71,16 @@ Rational Rational::operator ^(const Rational& obj) {
     return Rational(m, n);
 }
 
-void Rational::extract(string& str) {
-    int rez = 0, idx = 0;
+Rational Rational::extract(string& str) {
+    int rez = 0, idx = 0, m, n;
     if (str[idx] != '0')
         while (int(str[idx]) <= 57 and int(str[idx]) >= 48 and idx < str.size()) {
             rez = rez * 10 + int(str[idx]) - 48;
             idx++;
         }
-    _m = rez;
+    else
+        throw exception("Некорректный ввод выражения");
+    m = rez;
     if (str[idx] == '|') {
         idx++;
         rez = 0;
@@ -87,13 +89,17 @@ void Rational::extract(string& str) {
                 rez = rez * 10 + int(str[idx]) - 48;
                 idx++;
             }
-        _n = rez;
+        else
+            throw exception("Некорректный ввод выражения");
+        n = rez;
 
     }
     else if (str[idx] == ' ') {
-        _n = 1;
+        n = 1;
     }
     else
         throw exception("Некорректный ввод выражения");
+
     str.erase(str.begin(), str.begin() + idx + 1);
+    return Rational::Rational(m, n);
 }
