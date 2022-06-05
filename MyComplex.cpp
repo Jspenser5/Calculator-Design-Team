@@ -7,6 +7,11 @@ double power(double a, int p) {
 }
 double extract_double_num(const string& str, int& idx) {
 	double rez = 0;
+	int f = 1;
+	if (str[idx] == '-' and  str[idx+1]!=',' and str[idx + 1] != ']') {
+		f = -1;
+		idx++;
+	}
 	if (str[idx] != '0') {
 		int step = 0;
 		while (int(str[idx]) <= 57 and int(str[idx]) >= 48 and idx < str.size()) {
@@ -23,7 +28,7 @@ double extract_double_num(const string& str, int& idx) {
 				step++;
 			}
 		}
-		return rez;
+		return rez*f;
 	}
 	return 0;
 }
@@ -38,17 +43,17 @@ void complex::print() {
 void complex::extract(string& str) {
 	int count = 1, lc = 1;
 	if (str.size() < 5)
-		throw exception("Íå âåðíûé ôîðìàò ââîäà");
+		throw exception("ÃÃ¥ Ã¢Ã¥Ã°Ã­Ã»Ã© Ã´Ã®Ã°Ã¬Ã Ã² Ã¢Ã¢Ã®Ã¤Ã ");
 	if (str[0] == '[') {
 		this->Re = extract_double_num(str, count);
-		if (str[count] != ',' or count == lc) throw exception("Íå âåðíûé ôîðìàò ââîäà");
+		if (str[count] != ',' or count == lc) throw exception("ÃÃ¥ Ã¢Ã¥Ã°Ã­Ã»Ã© Ã´Ã®Ã°Ã¬Ã Ã² Ã¢Ã¢Ã®Ã¤Ã ");
 		count++;
 		lc = count;
 		this->Im = extract_double_num(str, count);
-		if (str[count] != ']' or count == lc) throw exception("Íå âåðíûé ôîðìàò ââîäà");
+		if (str[count] != ']' or count == lc) throw exception("ÃÃ¥ Ã¢Ã¥Ã°Ã­Ã»Ã© Ã´Ã®Ã°Ã¬Ã Ã² Ã¢Ã¢Ã®Ã¤Ã ");
 		str.erase(str.begin(), str.begin() + count+1);
 	}
-	else throw exception("Íå âåðíûé ôîðìàò ââîäà");
+	else throw exception("ÃÃ¥ Ã¢Ã¥Ã°Ã­Ã»Ã© Ã´Ã®Ã°Ã¬Ã Ã² Ã¢Ã¢Ã®Ã¤Ã ");
 }
 complex complex::operator +(complex c2) {
 	complex tmp;
@@ -68,7 +73,7 @@ complex complex::operator *(complex c2) {
 complex complex::operator /(complex c2) {
 	complex tmp;
 	if (c2.Re == 0 and c2.Im == 0)
-		throw exception("Â ðåçóëüòàòå âû÷èñëåíèé ïðîèçîøëî äåëåíèå íà íîëü");
+		throw exception("Ã‚ Ã°Ã¥Ã§Ã³Ã«Ã¼Ã²Ã Ã²Ã¥ Ã¢Ã»Ã·Ã¨Ã±Ã«Ã¥Ã­Ã¨Ã© Ã¯Ã°Ã®Ã¨Ã§Ã®Ã¸Ã«Ã® Ã¤Ã¥Ã«Ã¥Ã­Ã¨Ã¥ Ã­Ã  Ã­Ã®Ã«Ã¼");
 	tmp.set(((this->Re) * (c2.Re) + (this->Im) * (c2.Im)) / (c2.Re * c2.Re + c2.Im * c2.Im), ((this->Im) * (c2.Re) - (this->Re) * (c2.Im)) / (c2.Re * c2.Re + c2.Im * c2.Im));
 	return tmp;
 }
