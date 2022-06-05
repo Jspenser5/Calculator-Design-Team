@@ -43,6 +43,12 @@ void processing_of_string(string& expression) {
 		}
 		idx++;
 	}
+	if (expression[0] == '-')
+		expression[0] = '!';
+	for (int i = 1; i < expression.size(); i++) {
+		if (expression[i] == '-' and expression[i - 1] == '(')
+			expression[i] = '!';
+	}
 }
 
 string reverse_polish_notationL(string& expression, vector<char>& operators, vector<int> priorities) {
