@@ -1,84 +1,49 @@
 #include<iostream>
 #include<string>
 #include<vector>
-#include"Rational.h"
-#include"Stack.h"
+#include"Calc.h"
 #include"reverse_polish_notation.h"
 using namespace std;
 
-int main() {
-	string OPZ;
-	Stack<Rational> st;
-	Rational temp1, temp2, result;
-	char operation;
-	// (a+b)*(c-d)/(e^f)
-	//a b +c d -*e f ^/
-	// (5|6+7|10)*(17|23-2|23)/(4|7^3|1)
-
-	string expression;
-	cin >> expression;
-	vector<char> operators{ '-','+','/','*','^' };
-	vector<int> priorities{ 0,0,1,1,2 };
-	OPZ = reverse_polish_notation(expression, operators, priorities);
-	cout << "Reverse Polish Notation: " << OPZ << endl;
-
-	while (OPZ.size() != 0) {
-		if (OPZ[0] != '+' and OPZ[0] != '-' and OPZ[0] != '*' and OPZ[0] != '/' and OPZ[0] != '^') {
-			st.push(temp1.extract(OPZ));
-			cout << st.look_top() << endl;
+int get_norm_input() {
+	while (true) {
+		int value;
+		cin >> value;
+		if (cin.fail() or value <= 0 or value>=4) {
+			cout << "Введено либо не число , либо число вышло за допустимые значения , повторите ввод : ";
+			cin.clear();
+			cin.ignore(32767, '\n');
 		}
-		else {
-			switch (OPZ[0])
-			{
-			case '!':
-				// унарный минус
-				break;
-			case '+':
-				temp2 = st.look_top();
-				st.pop();
-				temp1 = st.look_top();
-				st.pop();
-				result = temp1 + temp2;
-				st.push(result);
-				break;
-			case '-':
-				temp2 = st.look_top();
-				st.pop();
-				temp1 = st.look_top();
-				st.pop();
-				result = temp1 - temp2;
-				st.push(result);
-				break;
-			case '*':
-				temp2 = st.look_top();
-				st.pop();
-				temp1 = st.look_top();
-				st.pop();
-				result = temp1 * temp2;
-				st.push(result);
-				break;
-			case '/':
-				temp2 = st.look_top();
-				st.pop();
-				temp1 = st.look_top();
-				st.pop();
-				result = temp1 / temp2;
-				st.push(result);
-				break;
-			case '^':
-				temp2 = st.look_top();
-				st.pop();
-				temp1 = st.look_top();
-				st.pop();
-				result = (temp1 ^ temp2);
-				st.push(result);
-				break;
-			}
-			OPZ.erase(OPZ.begin(), OPZ.begin() + 1);
+		else
+			return value;
+	}
+}
+
+int main() {
+	setlocale(LC_ALL, "rus");
+	int f;
+	string OPZ;
+	string expression;
+	cout << "Выберете тип чисел для работы :" << '\n';
+	cout << " Комплексные числа  - 1" << '\n';
+	cout << " Рациональные числа - 2" << '\n';
+	cout << " Длинная арифметика - 3" << '\n';
+	cout << "Введите ключ : ";
+	f = get_norm_input();
+	if (f == 1) 
+		cout << "Формат ввода ( [a,b] ) , где  a и b рациональные числа вида ****.****  " << endl;
+	cin >> expression;
+	vector<char> operators{ '-','+','/','*','!' };
+	vector<int> priorities{ 0,0,1,1,2 };
+	try {
+		OPZ = reverse_polish_notation(expression, operators, priorities);
+		if (f == 1) {
+			complex_calc(OPZ);
 		}
 	}
-
-	cout << "result = " << st.look_top() << endl;
+	catch (exception& ex) {
+		cout<<ex.what()<<endl;
+	}
 	system("pause");
 	return 0;
 }
