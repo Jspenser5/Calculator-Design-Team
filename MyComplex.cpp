@@ -30,6 +30,7 @@ double extract_double_num(const string& str, int& idx) {
 		}
 		return rez*f;
 	}
+	idx++;
 	return 0;
 }
 
@@ -43,17 +44,17 @@ void complex::print() {
 void complex::extract(string& str) {
 	int count = 1, lc = 1;
 	if (str.size() < 5)
-		throw exception("Íå âåðíûé ôîðìàò ââîäà");
+		throw exception("Не верный формат ввода");
 	if (str[0] == '[') {
 		this->Re = extract_double_num(str, count);
-		if (str[count] != ',' or count == lc) throw exception("Íå âåðíûé ôîðìàò ââîäà");
+		if (str[count] != ',' or count == lc) throw exception("Не верный формат ввода");
 		count++;
 		lc = count;
 		this->Im = extract_double_num(str, count);
-		if (str[count] != ']' or count == lc) throw exception("Íå âåðíûé ôîðìàò ââîäà");
+		if (str[count] != ']' or count == lc) throw exception("Не верный формат ввода");
 		str.erase(str.begin(), str.begin() + count+1);
 	}
-	else throw exception("Íå âåðíûé ôîðìàò ââîäà");
+	else throw exception("Не верный формат ввода");
 }
 complex complex::operator +(complex c2) {
 	complex tmp;
@@ -65,6 +66,11 @@ complex complex::operator -(complex c2) {
 	tmp.set(this->Re - c2.Re, this->Im - c2.Im);
 	return tmp;
 }
+complex complex::operator !() {
+	complex tmp;
+	tmp.set(-(this->Re) , -(this->Im) );
+	return tmp;
+}
 complex complex::operator *(complex c2) {
 	complex tmp;
 	tmp.set((this->Re) * (c2.Re) - (this->Im) * (c2.Im), (this->Re) * (c2.Im) + (this->Im) * (c2.Re));
@@ -73,7 +79,7 @@ complex complex::operator *(complex c2) {
 complex complex::operator /(complex c2) {
 	complex tmp;
 	if (c2.Re == 0 and c2.Im == 0)
-		throw exception("Â ðåçóëüòàòå âû÷èñëåíèé ïðîèçîøëî äåëåíèå íà íîëü");
+		throw exception("В результате вычислений произошло деление на ноль");
 	tmp.set(((this->Re) * (c2.Re) + (this->Im) * (c2.Im)) / (c2.Re * c2.Re + c2.Im * c2.Im), ((this->Im) * (c2.Re) - (this->Re) * (c2.Im)) / (c2.Re * c2.Re + c2.Im * c2.Im));
 	return tmp;
 }
