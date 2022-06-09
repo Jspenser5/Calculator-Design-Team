@@ -1,49 +1,60 @@
-#include<iostream>
-#include<string>
-#include<vector>
-#include"Calc.h"
-#include"reverse_polish_notation.h"
-using namespace std;
-
-int get_norm_input() {
-	while (true) {
-		int value;
-		cin >> value;
-		if (cin.fail() or value <= 0 or value>=4) {
-			cout << "Введено либо не число , либо число вышло за допустимые значения , повторите ввод : ";
-			cin.clear();
-			cin.ignore(32767, '\n');
+void complex_calc(string& OPZ) {
+	Stack<complex> st;
+	complex temp1, temp2, result;
+	while (OPZ.size() != 0) {
+		if (OPZ[0] != '+' and OPZ[0] != '-' and OPZ[0] != '*' and OPZ[0] != '/' and OPZ[0] != '!') {
+			temp1.extract(OPZ);
+			st.push(temp1);
 		}
-		else
-			return value;
-	}
-}
+		else {
+			switch (OPZ[0])
+			{
+			case '!':
+				// унарный минус
+				temp1 = st.look_top();
+				result = temp1- temp1 - temp1;
+				st.pop();
+				st.push(result);
+				break;
 
-int main() {
-	setlocale(LC_ALL, "rus");
-	int f;
-	string OPZ;
-	string expression;
-	cout << "Выберете тип чисел для работы :" << '\n';
-	cout << " Комплексные числа  - 1" << '\n';
-	cout << " Рациональные числа - 2" << '\n';
-	cout << " Длинная арифметика - 3" << '\n';
-	cout << "Введите ключ : ";
-	f = get_norm_input();
-	if (f == 1) 
-		cout << "Формат ввода ( [a,b] ) , где  a и b рациональные числа вида ****.****  " << endl;
-	cin >> expression;
-	vector<char> operators{ '-','+','/','*','!' };
-	vector<int> priorities{ 0,0,1,1,2 };
-	try {
-		OPZ = reverse_polish_notation(expression, operators, priorities);
-		if (f == 1) {
-			complex_calc(OPZ);
+			case '+':
+				temp2 = st.look_top();
+				st.pop();
+				temp1 = st.look_top();
+				st.pop();
+				result = temp1 + temp2;
+				st.push(result);
+				break;
+			case '-':
+				temp2 = st.look_top();
+				st.pop();
+				temp1 = st.look_top();
+				st.pop();
+				result = temp1 - temp2;
+				st.push(result);
+				break;
+			case '*':
+				temp2 = st.look_top();
+				st.pop();
+				temp1 = st.look_top();
+				st.pop();
+				result = temp1 * temp2;
+				st.push(result);
+				break;
+			case '/':
+				temp2 = st.look_top();
+				st.pop();
+				temp1 = st.look_top();
+				st.pop();
+				result = temp1 / temp2;
+				st.push(result);
+				break;
+			}
 		}
+		OPZ.erase(OPZ.begin(), OPZ.begin() + 1);
 	}
-	catch (exception& ex) {
-		cout<<ex.what()<<endl;
-	}
-	system("pause");
-	return 0;
+	if (st.get_size() > 1)
+		throw exception("В выражении кажется не хватает операнд") ;
+	result = st.look_top();
+	result.print();
 }
