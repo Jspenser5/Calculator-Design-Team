@@ -12,6 +12,7 @@ class complex {
 public:
 	double Re;
 	double Im;
+	complex() : Re(0), Im(0) {}
 	//Функция ручной установки значений
 	void set(double R, double I);
 	//Функция печати на консоль
@@ -23,7 +24,8 @@ public:
 	complex operator *(complex c2);
 	complex operator /(complex c2);
 	complex operator =(complex cm);
-	
+	complex operator !();
+
 	friend ostream& operator <<(ostream&, const complex&);
 };
 
@@ -31,4 +33,4 @@ inline ostream& operator <<(ostream& output, const complex& obj) {
 	output << obj.Re << " + " << obj.Im << "i\n";
 	return output;
 }
-#endif
+#endif // MY_COMPLEX_H
