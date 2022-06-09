@@ -23,5 +23,12 @@ public:
 	complex operator *(complex c2);
 	complex operator /(complex c2);
 	complex operator =(complex cm);
+	
+	friend ostream& operator <<(ostream&, const complex&);
 };
+
+inline ostream& operator <<(ostream& output, const complex& obj) {
+	output << obj.Re << " + " << obj.Im << "i\n";
+	return output;
+}
 #endif
