@@ -1,5 +1,5 @@
-#ifndef MY_COMPLEX_H
-#define MY_COMPLEX_H
+#ifndef _COMPLEX_
+#define _COMPLEX_
 #include<string>
 #include<iostream>
 using namespace std;
@@ -33,4 +33,4 @@ inline ostream& operator <<(ostream& output, const complex& obj) {
 	output << obj.Re << " + " << obj.Im << "i\n";
 	return output;
 }
-#endif // MY_COMPLEX_H
+#endif // _COMPLEX_
