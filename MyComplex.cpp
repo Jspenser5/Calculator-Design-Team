@@ -1,4 +1,4 @@
-#include"MyComplex.h"
+#include"Complex.h"
 double power(double a, int p) {
 	double rez = 1;
 	for (int i = 0; i < p; i++)
@@ -8,7 +8,7 @@ double power(double a, int p) {
 double extract_double_num(const string& str, int& idx) {
 	double rez = 0;
 	int f = 1;
-	if (str[idx] == '-' and  str[idx+1]!=',' and str[idx + 1] != ']') {
+	if (str[idx] == '-' and str[idx + 1] != ',' and str[idx + 1] != ']') {
 		f = -1;
 		idx++;
 	}
@@ -28,7 +28,7 @@ double extract_double_num(const string& str, int& idx) {
 				step++;
 			}
 		}
-		return rez*f;
+		return rez * f;
 	}
 	idx++;
 	return 0;
@@ -52,7 +52,7 @@ void complex::extract(string& str) {
 		lc = count;
 		this->Im = extract_double_num(str, count);
 		if (str[count] != ']' or count == lc) throw exception("Не верный формат ввода");
-		str.erase(str.begin(), str.begin() + count+1);
+		str.erase(str.begin(), str.begin() + count + 1);
 	}
 	else throw exception("Не верный формат ввода");
 }
@@ -68,7 +68,7 @@ complex complex::operator -(complex c2) {
 }
 complex complex::operator !() {
 	complex tmp;
-	tmp.set(-(this->Re) , -(this->Im) );
+	tmp.set(-(this->Re), -(this->Im));
 	return tmp;
 }
 complex complex::operator *(complex c2) {
