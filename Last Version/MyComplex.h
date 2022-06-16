@@ -25,7 +25,7 @@ public:
 	Complex operator *(Complex c2);
 	Complex operator /(Complex c2);
 	Complex operator =(Complex cm);
-	Complex operator !();
+	void operator !();
 
 	friend ostream& operator <<(ostream&, const Complex&);
 };
