@@ -1,4 +1,4 @@
-#include"Complex.h"
+#include"MyComplex.h"
 double power(double a, int p) {
 	double rez = 1;
 	for (int i = 0; i < p; i++)
