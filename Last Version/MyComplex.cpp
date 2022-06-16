@@ -65,10 +65,9 @@ Complex Complex::operator -(Complex c2) {
 	tmp.set(this->_Re - c2._Re, this->_Im - c2._Im);
 	return tmp;
 }
-Complex Complex::operator !() {
-	Complex tmp;
-	tmp.set(-(this->_Re), -(this->_Im));
-	return tmp;
+void Complex::operator !() {
+	this->_Re = -this->_Re;
+	this->_Im = -this->_Im;
 }
 Complex Complex::operator *(Complex c2) {
 	Complex tmp;
