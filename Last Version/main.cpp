@@ -74,7 +74,7 @@ int main() {
 				getline(cin, expression);
 				Big_integer c;
 				OPZ = reverse_polish_notation(expression, operators, priorities);
-				type_calc(OPZ,c);
+				//type_calc(OPZ,c);
 				break;
 			}
 			case 4:
